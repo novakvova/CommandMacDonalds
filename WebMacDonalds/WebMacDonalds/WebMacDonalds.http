@@ -1,0 +1,6 @@
+@WebMacDonalds_HostAddress = http://localhost:5129
+
+GET {{WebMacDonalds_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
