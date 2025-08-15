@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WebMacDonalds.Data;
 using WebMacDonalds.Data.Entities.Identity;
+using WebMacDonalds.Interfaces;
+using WebMacDonalds.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +27,8 @@ builder.Services.AddIdentity<UserEntity, RoleEntity>(options =>
 
 
 builder.Services.AddControllers();
+
+builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 
 builder.Services.AddSwaggerGen();
 
