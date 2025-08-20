@@ -6,6 +6,16 @@ using WebMacDonalds.Interfaces;
 using WebMacDonalds.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowReactApp",
+        builder =>
+        {
+            builder.WithOrigins("http://localhost:5173")
+                   .AllowAnyHeader()
+                   .AllowAnyMethod();
+        });
+});
 
 // Add services to the container.
 
@@ -38,7 +48,7 @@ var app = builder.Build();
 
 app.UseSwagger();
 app.UseSwaggerUI();
-
+app.UseCors("AllowReactApp");
 // Configure the HTTP request pipeline.
 
 app.UseAuthorization();
