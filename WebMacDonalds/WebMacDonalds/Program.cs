@@ -30,6 +30,8 @@ builder.Services.AddControllers();
 
 builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
