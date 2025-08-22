@@ -9,7 +9,7 @@ export default function Layout() {
                         <Link to="/" className="text-indigo-600 hover:text-indigo-800 font-medium">Home</Link>
                     </li>
                     <li>
-                        <Link to="/about" className="text-indigo-600 hover:text-indigo-800 font-medium">About</Link>
+                        <Link to="/login" className="text-indigo-600 hover:text-indigo-800 font-medium">Login</Link>
                     </li>
                     <li>
                         <Link to="/dashboard" className="text-indigo-600 hover:text-indigo-800 font-medium">Dashboard</Link>
