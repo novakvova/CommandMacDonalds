@@ -1,29 +1,35 @@
 import {useGoogleLogin} from "@react-oauth/google";
 import { Form, Input, Button, message, Card } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from "axios";
+import { useAuth } from '../contexts/AuthContext';
 
 const Register = ()=> {
     const [form] = Form.useForm();
+    const navigate = useNavigate();
+    const { register } = useAuth();
     const loginByGoogle = useGoogleLogin({
         onSuccess: tokenResponse => console.log("Token", tokenResponse)
     });
     
     const onFinish = async (values) => {
-        axios.post("http://localhost:5129/api/account/register", values, {
-            // headers: {
-            //     'Content-Type': 'multipart/form-data',
-            // },    
-        })
-        .then(res => {
-            console.log("res", res);
+        try {
+            // Імітація успішної реєстрації
+            const newUser = {
+                id: Date.now(),
+                firstName: values.firstName,
+                lastName: values.lastName,
+                email: values.email,
+                avatar: undefined
+            };
+            
+            register(newUser);
             message.success('Реєстрація успішна!');
-        })
-        .catch(err => {
+            navigate('/');
+        } catch (err) {
             console.error("Error registering user:", err);
             message.error('Помилка реєстрації. Спробуйте ще раз.');
-        });
-        console.log("form data", values);
+        }
     }
 
     return (

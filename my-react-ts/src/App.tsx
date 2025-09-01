@@ -1,12 +1,14 @@
 import AppRoutes from "./routes/AppRoutes";
 import './App.css'
-
+import { AuthProvider } from './contexts/AuthContext';
 
 const App = () => {
     return (
-        <div className="max-w-4xl mx-auto p-6">
-            <AppRoutes />
-        </div>
+        <AuthProvider>
+            <div className="w-full">
+                <AppRoutes />
+            </div>
+        </AuthProvider>
     );
 }
 

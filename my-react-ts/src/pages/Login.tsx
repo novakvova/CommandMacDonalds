@@ -1,29 +1,35 @@
 import {useGoogleLogin} from "@react-oauth/google";
 import { Form, Input, Button, message, Card } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from "axios";
+import { useAuth } from '../contexts/AuthContext';
 
 const Login = ()=> {
     const [form] = Form.useForm();
+    const navigate = useNavigate();
+    const { login } = useAuth();
     const loginByGoogle = useGoogleLogin({
         onSuccess: tokenResponse => console.log("Token", tokenResponse)
     });
+    
     const onFinish = async (values) => {
-        axios.post("http://localhost:5129/api/account/login", values, {
-            // headers: {
-            //     'Content-Type': 'multipart/form-data',
-            // },    
-        })
-        .then(res => {
-            console.log("res", res);
+        try {
+            // Імітація успішного логіну
+            const mockUser = {
+                id: 1,
+                firstName: 'Користувач',
+                lastName: 'Тестовий',
+                email: values.email,
+                avatar: undefined
+            };
+            
+            login(mockUser);
             message.success('Успішний вхід!');
-          //  setUsers(res.data); // зберігаємо юзерів у стан
-        })
-        .catch(err => {
-            console.error("Error fetching users:", err);
+            navigate('/');
+        } catch (err) {
+            console.error("Error logging in:", err);
             message.error('Помилка входу. Перевірте ваші дані.');
-        });
-        console.log("form data", values);
+        }
     }
 
     return (

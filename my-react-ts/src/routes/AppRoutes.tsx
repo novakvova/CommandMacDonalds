@@ -3,6 +3,8 @@ import Layout from "../layouts/Layout";
 import Home from "../pages/Home";
 import Login from "../pages/Login.tsx";
 import Register from "../pages/Register.tsx";
+import Restaurants from "../pages/Restaurants.tsx";
+import Profile from "../pages/Profile.tsx";
 import Dashboard from "../pages/Dashboard";
 import NoMatch from "../pages/NoMatch";
 
@@ -13,6 +15,8 @@ export default function AppRoutes() {
                 <Route index element={<Home />} />
                 <Route path="login" element={<Login />} />
                 <Route path="register" element={<Register />} />
+                <Route path="restaurants" element={<Restaurants />} />
+                <Route path="profile" element={<Profile />} />
                 <Route path="dashboard" element={<Dashboard />} />
                 <Route path="*" element={<NoMatch />} />
             </Route>
