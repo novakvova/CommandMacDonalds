@@ -22,6 +22,14 @@ export default function Layout() {
                     </li>
                     <li>
                         <Link
+                            to="/register"
+                            className="bg-yellow-400 hover:bg-yellow-300 text-red-700 font-semibold px-4 py-1 rounded-md transition-all"
+                        >
+                            Register
+                        </Link>
+                    </li>
+                    <li>
+                        <Link
                             to="/login"
                             className="bg-yellow-400 hover:bg-yellow-300 text-red-700 font-semibold px-4 py-1 rounded-md transition-all"
                         >
