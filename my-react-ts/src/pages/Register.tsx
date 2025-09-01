@@ -3,25 +3,25 @@ import { Form, Input, Button, message, Card } from 'antd';
 import { Link } from 'react-router-dom';
 import axios from "axios";
 
-const Login = ()=> {
+const Register = ()=> {
     const [form] = Form.useForm();
     const loginByGoogle = useGoogleLogin({
         onSuccess: tokenResponse => console.log("Token", tokenResponse)
     });
+    
     const onFinish = async (values) => {
-        axios.post("http://localhost:5129/api/account/login", values, {
+        axios.post("http://localhost:5129/api/account/register", values, {
             // headers: {
             //     'Content-Type': 'multipart/form-data',
             // },    
         })
         .then(res => {
             console.log("res", res);
-            message.success('Успішний вхід!');
-          //  setUsers(res.data); // зберігаємо юзерів у стан
+            message.success('Реєстрація успішна!');
         })
         .catch(err => {
-            console.error("Error fetching users:", err);
-            message.error('Помилка входу. Перевірте ваші дані.');
+            console.error("Error registering user:", err);
+            message.error('Помилка реєстрації. Спробуйте ще раз.');
         });
         console.log("form data", values);
     }
@@ -31,12 +31,12 @@ const Login = ()=> {
             <Card 
                 title={
                     <div className="text-center">
-                        <h1 className="text-3xl font-bold text-red-600 mb-2">Ласкаво просимо!</h1>
-                        <p className="text-gray-600">Увійдіть до вашого акаунту McDonald's</p>
+                        <h1 className="text-3xl font-bold text-red-600 mb-2">Створіть акаунт</h1>
+                        <p className="text-gray-600">Приєднуйтесь до McDonald's сьогодні</p>
                     </div>
                 } 
                 style={{ 
-                    maxWidth: 450, 
+                    maxWidth: 500, 
                     width: '100%',
                     borderRadius: '16px',
                     boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)'
@@ -50,6 +50,30 @@ const Login = ()=> {
                 }}
             >
                 <Form form={form} layout="vertical" onFinish={onFinish} size="large">
+                    <div className="grid md:grid-cols-2 gap-4">
+                        <Form.Item 
+                            name="firstName" 
+                            label="Ім'я" 
+                            rules={[{ required: true, message: 'Ім\'я є обов\'язковим!' }]}
+                        >
+                            <Input 
+                                placeholder="Введіть ваше ім'я"
+                                style={{ borderRadius: '8px' }}
+                            />
+                        </Form.Item>
+                        
+                        <Form.Item 
+                            name="lastName" 
+                            label="Прізвище" 
+                            rules={[{ required: true, message: 'Прізвище є обов\'язковим!' }]}
+                        >
+                            <Input 
+                                placeholder="Введіть ваше прізвище"
+                                style={{ borderRadius: '8px' }}
+                            />
+                        </Form.Item>
+                    </div>
+                    
                     <Form.Item 
                         name="email" 
                         label="Email" 
@@ -70,10 +94,34 @@ const Login = ()=> {
                         rules={[
                             { required: true, message: 'Пароль є обов\'язковим!' },
                             { min: 6, message: 'Пароль має містити мінімум 6 символів' },
+                            { pattern: /[A-Z]/, message: 'Пароль повинен містити хоча б одну велику літеру' },
+                            { pattern: /\d/, message: 'Пароль повинен містити хоча б одну цифру' },
                         ]}
                     >
                         <Input.Password 
-                            placeholder="Введіть ваш пароль"
+                            placeholder="Створіть пароль"
+                            style={{ borderRadius: '8px' }}
+                        />
+                    </Form.Item>
+                    
+                    <Form.Item
+                        name="confirmPassword"
+                        label="Підтвердження пароля"
+                        dependencies={['password']}
+                        rules={[
+                            { required: true, message: 'Підтвердження пароля є обов\'язковим!' },
+                            ({ getFieldValue }) => ({
+                                validator(_, value) {
+                                    if (!value || getFieldValue('password') === value) {
+                                        return Promise.resolve();
+                                    }
+                                    return Promise.reject(new Error('Паролі не співпадають!'));
+                                },
+                            }),
+                        ]}
+                    >
+                        <Input.Password 
+                            placeholder="Підтвердіть пароль"
                             style={{ borderRadius: '8px' }}
                         />
                     </Form.Item>
@@ -92,26 +140,16 @@ const Login = ()=> {
                                 borderColor: '#dc2626'
                             }}
                         >
-                            Увійти
+                            Зареєструватися
                         </Button>
                     </Form.Item>
 
                     <div style={{ textAlign: 'center', marginTop: 16 }}>
-                        <span className="text-gray-600">Немає акаунту? </span>
-                        <Link to="/register" className="text-red-600 hover:text-red-700 font-semibold">
-                            Зареєструватися
+                        <span className="text-gray-600">Вже маєте акаунт? </span>
+                        <Link to="/login" className="text-red-600 hover:text-red-700 font-semibold">
+                            Увійти
                         </Link>
                     </div>
-                    
-                    <Link to="/password-reset" style={{ 
-                        display: 'block', 
-                        textAlign: 'center', 
-                        marginTop: 16,
-                        color: '#6b7280',
-                        textDecoration: 'none'
-                    }}>
-                        Забули пароль?
-                    </Link>
                     
                     <div style={{ marginTop: 24, textAlign: 'center' }}>
                         <div style={{ 
@@ -138,7 +176,7 @@ const Login = ()=> {
                             }}
                         >
                             <span style={{ marginRight: 8 }}>🔍</span>
-                            Увійти через Google
+                            Зареєструватися через Google
                         </Button>
                     </div>
                 </Form>
@@ -147,4 +185,4 @@ const Login = ()=> {
     );
 }
 
-export default Login;
+export default Register; 
