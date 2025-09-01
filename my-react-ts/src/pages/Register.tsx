@@ -11,9 +11,9 @@ const Register = ()=> {
     
     const onFinish = async (values) => {
         axios.post("http://localhost:5129/api/account/register", values, {
-            // headers: {
-            //     'Content-Type': 'multipart/form-data',
-            // },    
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },    
         })
         .then(res => {
             console.log("res", res);
