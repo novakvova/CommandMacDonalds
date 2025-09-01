@@ -27,11 +27,11 @@ const Login = ()=> {
     }
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-yellow-100 to-yellow-200 py-12 px-4">
+        <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4">
             <Card 
                 title={
                     <div className="text-center">
-                        <h1 className="text-3xl font-bold text-red-600 mb-2">Ласкаво просимо!</h1>
+                        <h1 className="text-3xl font-bold text-gray-800 mb-2">Ласкаво просимо!</h1>
                         <p className="text-gray-600">Увійдіть до вашого акаунту McDonald's</p>
                     </div>
                 } 
@@ -88,8 +88,8 @@ const Login = ()=> {
                                 borderRadius: '8px',
                                 fontSize: '16px',
                                 fontWeight: '600',
-                                background: '#dc2626',
-                                borderColor: '#dc2626'
+                                background: 'var(--mcdonalds-red)',
+                                borderColor: 'var(--mcdonalds-red)'
                             }}
                         >
                             Увійти

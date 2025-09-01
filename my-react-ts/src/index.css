@@ -1,5 +1,161 @@
 @import "tailwindcss";
 
+:root {
+  --mcdonalds-red: #ff6b35;
+  --mcdonalds-orange: #f7931e;
+  --mcdonalds-yellow: #ffd700;
+  --mcdonalds-dark: #333333;
+  --mcdonalds-light: #f8f9fa;
+  --mcdonalds-white: #ffffff;
+  --mcdonalds-gray: #666666;
+  --mcdonalds-light-gray: #e0e0e0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 body {
-    @apply bg-gray-100 text-gray-800 font-sans;
+  @apply bg-gray-50 text-gray-800 font-sans;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+}
+
+/* Глобальні стилі для кнопок */
+.btn-primary {
+  background: linear-gradient(135deg, var(--mcdonalds-red), var(--mcdonalds-orange));
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(255, 107, 53, 0.4);
+}
+
+.btn-secondary {
+  background: white;
+  color: var(--mcdonalds-red);
+  border: 2px solid var(--mcdonalds-red);
+  padding: 12px 24px;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-secondary:hover {
+  background: var(--mcdonalds-red);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(255, 107, 53, 0.4);
+}
+
+/* Глобальні стилі для карток */
+.card {
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  border: 1px solid var(--mcdonalds-light-gray);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Глобальні стилі для заголовків */
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: center;
+  margin: 0 0 40px 0;
+  color: var(--mcdonalds-dark);
+}
+
+/* Глобальні стилі для градієнтів */
+.gradient-primary {
+  background: linear-gradient(135deg, var(--mcdonalds-red), var(--mcdonalds-orange));
+}
+
+.gradient-secondary {
+  background: linear-gradient(135deg, var(--mcdonalds-yellow), #ffed4e);
+}
+
+/* Глобальні стилі для анімацій */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* Глобальні стилі для інпутів */
+.input-primary {
+  width: 100%;
+  padding: 15px 20px;
+  border: 2px solid var(--mcdonalds-light-gray);
+  border-radius: 25px;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.input-primary:focus {
+  border-color: var(--mcdonalds-red);
+  box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+}
+
+/* Глобальні стилі для цін */
+.price {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--mcdonalds-red);
+}
+
+/* Глобальні стилі для бейджів */
+.badge {
+  background: linear-gradient(135deg, var(--mcdonalds-red), var(--mcdonalds-orange));
+  color: white;
+  padding: 6px 12px;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+/* Responsive breakpoints */
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 2rem;
+  }
+  
+  .btn-primary,
+  .btn-secondary {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-title {
+    font-size: 1.8rem;
+  }
 }
