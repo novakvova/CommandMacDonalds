@@ -6,6 +6,7 @@ import Register from "../pages/Register.tsx";
 import Restaurants from "../pages/Restaurants.tsx";
 import Profile from "../pages/Profile.tsx";
 import Dashboard from "../pages/Dashboard";
+import Menu from "../pages/Menu";
 import NoMatch from "../pages/NoMatch";
 
 export default function AppRoutes() {
@@ -13,6 +14,7 @@ export default function AppRoutes() {
         <Routes>
             <Route path="/" element={<Layout />}>
                 <Route index element={<Home />} />
+                <Route path="menu" element={<Menu />} />
                 <Route path="login" element={<Login />} />
                 <Route path="register" element={<Register />} />
                 <Route path="restaurants" element={<Restaurants />} />
