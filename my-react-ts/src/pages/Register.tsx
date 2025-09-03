@@ -33,30 +33,15 @@ const Register = ()=> {
     }
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-yellow-100 to-yellow-200 py-12 px-4">
-            <Card 
-                title={
-                    <div className="text-center">
-                        <h1 className="text-3xl font-bold text-red-600 mb-2">Створіть акаунт</h1>
-                        <p className="text-gray-600">Приєднуйтесь до McDonald's сьогодні</p>
-                    </div>
-                } 
-                style={{ 
-                    maxWidth: 500, 
-                    width: '100%',
-                    borderRadius: '16px',
-                    boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)'
-                }}
-                headStyle={{
-                    borderBottom: 'none',
-                    paddingBottom: '0'
-                }}
-                bodyStyle={{
-                    padding: '32px'
-                }}
-            >
-                <Form form={form} layout="vertical" onFinish={onFinish} size="large">
-                    <div className="grid md:grid-cols-2 gap-4">
+        <div className="auth-container">
+            <div className="auth-card">
+                <div className="auth-header">
+                    <h1>Створіть акаунт</h1>
+                    <p>Приєднуйтесь до McDonald's сьогодні</p>
+                </div>
+                
+                <Form form={form} layout="vertical" onFinish={onFinish} size="large" className="auth-form">
+                    <div className="name-fields">
                         <Form.Item 
                             name="firstName" 
                             label="Ім'я" 
@@ -64,7 +49,7 @@ const Register = ()=> {
                         >
                             <Input 
                                 placeholder="Введіть ваше ім'я"
-                                style={{ borderRadius: '8px' }}
+                                className="auth-input"
                             />
                         </Form.Item>
                         
@@ -75,7 +60,7 @@ const Register = ()=> {
                         >
                             <Input 
                                 placeholder="Введіть ваше прізвище"
-                                style={{ borderRadius: '8px' }}
+                                className="auth-input"
                             />
                         </Form.Item>
                     </div>
@@ -90,7 +75,7 @@ const Register = ()=> {
                     >
                         <Input 
                             placeholder="Введіть ваш email"
-                            style={{ borderRadius: '8px' }}
+                            className="auth-input"
                         />
                     </Form.Item>
                     
@@ -106,7 +91,7 @@ const Register = ()=> {
                     >
                         <Input.Password 
                             placeholder="Створіть пароль"
-                            style={{ borderRadius: '8px' }}
+                            className="auth-input"
                         />
                     </Form.Item>
                     
@@ -128,7 +113,7 @@ const Register = ()=> {
                     >
                         <Input.Password 
                             placeholder="Підтвердіть пароль"
-                            style={{ borderRadius: '8px' }}
+                            className="auth-input"
                         />
                     </Form.Item>
                     
@@ -137,56 +122,36 @@ const Register = ()=> {
                             type="primary" 
                             htmlType="submit" 
                             block
-                            style={{
-                                height: '48px',
-                                borderRadius: '8px',
-                                fontSize: '16px',
-                                fontWeight: '600',
-                                background: '#dc2626',
-                                borderColor: '#dc2626'
-                            }}
+                            className="auth-submit-btn"
                         >
                             Зареєструватися
                         </Button>
                     </Form.Item>
 
-                    <div style={{ textAlign: 'center', marginTop: 16 }}>
-                        <span className="text-gray-600">Вже маєте акаунт? </span>
-                        <Link to="/login" className="text-red-600 hover:text-red-700 font-semibold">
+                    <div className="auth-links">
+                        <span>Вже маєте акаунт? </span>
+                        <Link to="/login" className="auth-link">
                             Увійти
                         </Link>
                     </div>
                     
-                    <div style={{ marginTop: 24, textAlign: 'center' }}>
-                        <div style={{ 
-                            display: 'flex', 
-                            alignItems: 'center', 
-                            marginBottom: 16 
-                        }}>
-                            <div style={{ flex: 1, height: 1, background: '#e5e7eb' }}></div>
-                            <span style={{ margin: '0 16px', color: '#6b7280' }}>або</span>
-                            <div style={{ flex: 1, height: 1, background: '#e5e7eb' }}></div>
-                        </div>
-                        
-                        <Button 
-                            type="default" 
-                            onClick={() => loginByGoogle()} 
-                            block 
-                            style={{
-                                height: '48px',
-                                borderRadius: '8px',
-                                fontSize: '16px',
-                                fontWeight: '600',
-                                borderColor: '#d1d5db',
-                                color: '#374151'
-                            }}
-                        >
-                            <span style={{ marginRight: 8 }}>🔍</span>
-                            Зареєструватися через Google
-                        </Button>
+                    <div className="auth-divider">
+                        <div className="divider-line"></div>
+                        <span>або</span>
+                        <div className="divider-line"></div>
                     </div>
+                    
+                    <Button 
+                        type="default" 
+                        onClick={() => loginByGoogle()} 
+                        block 
+                        className="auth-google-btn"
+                    >
+                        <span className="google-icon">🔍</span>
+                        Зареєструватися через Google
+                    </Button>
                 </Form>
-            </Card>
+            </div>
         </div>
     );
 }
