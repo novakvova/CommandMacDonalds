@@ -1,37 +1,43 @@
 import {useGoogleLogin} from "@react-oauth/google";
 import { Form, Input, Button, message, Card } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from "axios";
+import { useAuth } from '../contexts/AuthContext';
 
 const Register = ()=> {
     const [form] = Form.useForm();
+    const navigate = useNavigate();
+    const { register } = useAuth();
     const loginByGoogle = useGoogleLogin({
         onSuccess: tokenResponse => console.log("Token", tokenResponse)
     });
     
     const onFinish = async (values) => {
-        axios.post("http://localhost:5129/api/account/register", values, {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            },    
-        })
-        .then(res => {
-            console.log("res", res);
+        try {
+            // Імітація успішної реєстрації
+            const newUser = {
+                id: Date.now(),
+                firstName: values.firstName,
+                lastName: values.lastName,
+                email: values.email,
+                avatar: undefined
+            };
+            
+            register(newUser);
             message.success('Реєстрація успішна!');
-        })
-        .catch(err => {
+            navigate('/');
+        } catch (err) {
             console.error("Error registering user:", err);
             message.error('Помилка реєстрації. Спробуйте ще раз.');
-        });
-        console.log("form data", values);
+        }
     }
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4">
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-yellow-100 to-yellow-200 py-12 px-4">
             <Card 
                 title={
                     <div className="text-center">
-                        <h1 className="text-3xl font-bold text-gray-800 mb-2">Створіть акаунт</h1>
+                        <h1 className="text-3xl font-bold text-red-600 mb-2">Створіть акаунт</h1>
                         <p className="text-gray-600">Приєднуйтесь до McDonald's сьогодні</p>
                     </div>
                 } 
@@ -136,8 +142,8 @@ const Register = ()=> {
                                 borderRadius: '8px',
                                 fontSize: '16px',
                                 fontWeight: '600',
-                                background: 'var(--mcdonalds-red)',
-                                borderColor: 'var(--mcdonalds-red)'
+                                background: '#dc2626',
+                                borderColor: '#dc2626'
                             }}
                         >
                             Зареєструватися

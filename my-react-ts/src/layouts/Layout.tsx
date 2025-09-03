@@ -1,7 +1,11 @@
 import { Link, Outlet } from "react-router-dom";
 import logo from "../assets/732217.png";
+import { useAuth } from "../contexts/AuthContext";
+import UserProfile from "../components/UserProfile";
 
 export default function Layout() {
+    const { isAuthenticated } = useAuth();
+    
     return (
         <div className="min-h-screen w-full flex flex-col bg-gray-50">
             {/* Navbar */}
@@ -41,18 +45,24 @@ export default function Layout() {
                     </ul>
 
                     <div className="flex items-center space-x-4">
-                        <Link
-                            to="/register"
-                            className="btn-secondary"
-                        >
-                            Реєстрація
-                        </Link>
-                        <Link
-                            to="/login"
-                            className="btn-primary"
-                        >
-                            Увійти
-                        </Link>
+                        {isAuthenticated ? (
+                            <UserProfile />
+                        ) : (
+                            <>
+                                <Link
+                                    to="/register"
+                                    className="bg-white hover:bg-gray-100 text-red-600 font-semibold px-6 py-2 rounded-full border-2 border-red-600 transition-all duration-200 hover:shadow-md"
+                                >
+                                    Реєстрація
+                                </Link>
+                                <Link
+                                    to="/login"
+                                    className="bg-red-600 hover:bg-red-700 text-white font-semibold px-6 py-2 rounded-full transition-all duration-200 hover:shadow-md transform hover:scale-105"
+                                >
+                                    Увійти
+                                </Link>
+                            </>
+                        )}
                     </div>
                 </div>
             </nav>
