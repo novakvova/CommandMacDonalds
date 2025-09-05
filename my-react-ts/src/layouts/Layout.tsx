@@ -43,13 +43,13 @@ export default function Layout() {
                             <>
                                 <Link
                                     to="/register"
-                                    className="bg-white hover:bg-gray-100 text-red-600 font-semibold px-6 py-2 rounded-full border-2 border-red-600 transition-all duration-200 hover:shadow-md"
+                                    className="auth-btn auth-btn-secondary"
                                 >
                                     Реєстрація
                                 </Link>
                                 <Link
                                     to="/login"
-                                    className="bg-red-600 hover:bg-red-700 text-white font-semibold px-6 py-2 rounded-full transition-all duration-200 hover:shadow-md transform hover:scale-105"
+                                    className="auth-btn auth-btn-primary"
                                 >
                                     Увійти
                                 </Link>

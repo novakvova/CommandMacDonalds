@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Menu.css';
 
 interface MenuItem {
@@ -10,6 +10,14 @@ interface MenuItem {
   category: string;
 }
 
+interface CartItem {
+  id: number;
+  name: string;
+  price: number;
+  image: string;
+  quantity: number;
+}
+
 const menuData: MenuItem[] = [
   // Бургери
   {
@@ -17,7 +25,7 @@ const menuData: MenuItem[] = [
     name: "Біг Мак",
     description: "Класичний бургер з двома котлетами, салатом, сиром, цибулею та спеціальним соусом",
     price: 89,
-    image: "https://via.placeholder.com/300x200/ff6b35/ffffff?text=Біг+Мак",
+    image: "http://localhost:5129/images/bigmac.jpg",
     category: "burgers"
   },
   {
@@ -25,7 +33,7 @@ const menuData: MenuItem[] = [
     name: "Макчикен",
     description: "Курчачий бургер з салатом та майонезом",
     price: 75,
-    image: "https://via.placeholder.com/300x200/ff6b35/ffffff?text=Макчикен",
+    image: "http://localhost:5129/images/macchiken.jpg",
     category: "burgers"
   },
   {
@@ -33,7 +41,7 @@ const menuData: MenuItem[] = [
     name: "Двохповерховий Чізбургер",
     description: "Два біфштекси з сиром, салатом, цибулею та кетчупом",
     price: 82,
-    image: "https://via.placeholder.com/300x200/ff6b35/ffffff?text=Чізбургер",
+    image: "http://localhost:5129/images/dablcheese.jpg",
     category: "burgers"
   },
   {
@@ -41,7 +49,7 @@ const menuData: MenuItem[] = [
     name: "Гранд Де Люкс",
     description: "Великий бургер з яловичиною, сиром, салатом та спеціальним соусом",
     price: 95,
-    image: "https://via.placeholder.com/300x200/ff6b35/ffffff?text=Гранд+Де+Люкс",
+    image: "http://localhost:5129/images/delux.jpg",
     category: "burgers"
   },
 
@@ -51,7 +59,7 @@ const menuData: MenuItem[] = [
     name: "Кока-Кола",
     description: "Класична газована вода з карамельним смаком",
     price: 25,
-    image: "https://via.placeholder.com/300x200/ff6b35/ffffff?text=Кока-Кола",
+    image: "http://localhost:5129/images/cola.jpg",
     category: "drinks"
   },
   {
@@ -59,7 +67,7 @@ const menuData: MenuItem[] = [
     name: "Фанта",
     description: "Освіжаючий апельсиновий напій",
     price: 25,
-    image: "https://via.placeholder.com/300x200/ff6b35/ffffff?text=Фанта",
+    image: "http://localhost:5129/images/fanta.jpg",
     category: "drinks"
   },
   {
@@ -67,7 +75,7 @@ const menuData: MenuItem[] = [
     name: "Спрайт",
     description: "Лимонно-лаймовий газований напій",
     price: 25,
-    image: "https://via.placeholder.com/300x200/ff6b35/ffffff?text=Спрайт",
+    image: "http://localhost:5129/images/sprite.jpg",
     category: "drinks"
   },
   {
@@ -75,7 +83,7 @@ const menuData: MenuItem[] = [
     name: "Кава Американо",
     description: "Класична кава з гарячою водою",
     price: 35,
-    image: "https://via.placeholder.com/300x200/ff6b35/ffffff?text=Кава",
+    image: "http://localhost:5129/images/cofe.jpg",
     category: "drinks"
   },
 
@@ -85,7 +93,7 @@ const menuData: MenuItem[] = [
     name: "Картопля Фрі",
     description: "Хрустка картопля, смажена до золотистої скоринки",
     price: 45,
-    image: "https://via.placeholder.com/300x200/ff6b35/ffffff?text=Картопля+Фрі",
+    image: "http://localhost:5129/images/kartoha.jpg",
     category: "sides"
   },
   {
@@ -93,7 +101,7 @@ const menuData: MenuItem[] = [
     name: "Картопляні Діпи",
     description: "Смачні картопляні кульки з сиром",
     price: 55,
-    image: "https://via.placeholder.com/300x200/ff6b35/ffffff?text=Картопляні+Діпи",
+    image: "http://localhost:5129/images/dipu.jpg",
     category: "sides"
   },
   {
@@ -101,7 +109,7 @@ const menuData: MenuItem[] = [
     name: "Салат Цезар",
     description: "Свіжий салат з куркою, сиром та соусом Цезар",
     price: 65,
-    image: "https://via.placeholder.com/300x200/ff6b35/ffffff?text=Салат+Цезар",
+    image: "http://localhost:5129/images/salad.jpg",
     category: "sides"
   },
 
@@ -111,7 +119,7 @@ const menuData: MenuItem[] = [
     name: "Макфлурі",
     description: "М'який морозиво з топінгом на вибір",
     price: 40,
-    image: "https://via.placeholder.com/300x200/ff6b35/ffffff?text=Макфлурі",
+    image: "http://localhost:5129/images/morozevo.jpg",
     category: "desserts"
   },
   {
@@ -119,7 +127,7 @@ const menuData: MenuItem[] = [
     name: "Яблучний Пиріг",
     description: "Теплий пиріг з яблуками та корицею",
     price: 35,
-    image: "https://via.placeholder.com/300x200/ff6b35/ffffff?text=Яблучний+Пиріг",
+    image: "http://localhost:5129/images/pirog.jpg",
     category: "desserts"
   },
   {
@@ -127,7 +135,7 @@ const menuData: MenuItem[] = [
     name: "Маккафе",
     description: "Кава з морозивом та топінгом",
     price: 45,
-    image: "https://via.placeholder.com/300x200/ff6b35/ffffff?text=Маккафе",
+    image: "http://localhost:5129/images/maccafe.jpg",
     category: "desserts"
   },
 
@@ -137,7 +145,7 @@ const menuData: MenuItem[] = [
     name: "Макмафін з Яйцем",
     description: "Сніданковий сендвіч з яйцем та сиром",
     price: 55,
-    image: "https://via.placeholder.com/300x200/ff6b35/ffffff?text=Макмафін",
+    image: "http://localhost:5129/images/eggs.jpg",
     category: "breakfast"
   },
   {
@@ -145,7 +153,7 @@ const menuData: MenuItem[] = [
     name: "Хоткейки",
     description: "Теплі хоткейки з сиропом",
     price: 45,
-    image: "https://via.placeholder.com/300x200/ff6b35/ffffff?text=Хоткейки",
+    image: "http://localhost:5129/images/blinu.jpg",
     category: "breakfast"
   }
 ];
@@ -171,18 +179,90 @@ export default function Menu() {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
   const [addedItems, setAddedItems] = useState<number[]>([]);
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [cartAnimation, setCartAnimation] = useState(false);
 
-  const handleAddToCart = (itemId: number, itemName: string) => {
-    setAddedItems(prev => [...prev, itemId]);
+  // Завантаження кошика з localStorage при ініціалізації
+  useEffect(() => {
+    const savedCart = localStorage.getItem('mcdonalds-cart');
+    if (savedCart) {
+      setCartItems(JSON.parse(savedCart));
+    }
+  }, []);
+
+  // Збереження кошика в localStorage при зміні
+  useEffect(() => {
+    localStorage.setItem('mcdonalds-cart', JSON.stringify(cartItems));
+  }, [cartItems]);
+
+  const handleAddToCart = (item: MenuItem) => {
+    setAddedItems(prev => [...prev, item.id]);
     
-    // Показуємо повідомлення
-    const message = `${itemName} додано до кошика!`;
-    alert(message);
+    // Додаємо товар до кошика
+    setCartItems(prev => {
+      const existingItem = prev.find(cartItem => cartItem.id === item.id);
+      if (existingItem) {
+        return prev.map(cartItem =>
+          cartItem.id === item.id
+            ? { ...cartItem, quantity: cartItem.quantity + 1 }
+            : cartItem
+        );
+      } else {
+        return [...prev, {
+          id: item.id,
+          name: item.name,
+          price: item.price,
+          image: item.image,
+          quantity: 1
+        }];
+      }
+    });
     
     // Видаляємо з доданих через 2 секунди
     setTimeout(() => {
-      setAddedItems(prev => prev.filter(id => id !== itemId));
+      setAddedItems(prev => prev.filter(id => id !== item.id));
     }, 2000);
+  };
+
+  const removeFromCart = (itemId: number) => {
+    setCartItems(prev => prev.filter(item => item.id !== itemId));
+  };
+
+  const updateQuantity = (itemId: number, newQuantity: number) => {
+    if (newQuantity <= 0) {
+      removeFromCart(itemId);
+      return;
+    }
+    
+    setCartItems(prev => prev.map(item =>
+      item.id === itemId ? { ...item, quantity: newQuantity } : item
+    ));
+  };
+
+  const getTotalPrice = () => {
+    return cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+  };
+
+  const getTotalItems = () => {
+    return cartItems.reduce((total, item) => total + item.quantity, 0);
+  };
+
+  const clearCart = () => {
+    setCartItems([]);
+    setIsCartOpen(false);
+  };
+
+  const toggleCart = () => {
+    if (isCartOpen) {
+      setCartAnimation(true);
+      setTimeout(() => {
+        setIsCartOpen(false);
+        setCartAnimation(false);
+      }, 300);
+    } else {
+      setIsCartOpen(true);
+    }
   };
 
   const filteredMenu = menuData.filter(item => {
@@ -194,6 +274,88 @@ export default function Menu() {
 
   return (
     <div className="menu-container">
+      {/* Кнопка кошика */}
+      <div className="cart-button-container">
+        <button className="cart-toggle-btn" onClick={toggleCart}>
+          🛒 Кошик
+          {getTotalItems() > 0 && (
+            <span className="cart-badge">{getTotalItems()}</span>
+          )}
+        </button>
+      </div>
+
+      {/* Кошик */}
+      <div className={`cart-sidebar ${isCartOpen ? 'open' : ''} ${cartAnimation ? 'closing' : ''}`}>
+        <div className="cart-header">
+          <h3>🛒 Кошик</h3>
+          <button className="cart-close-btn" onClick={toggleCart}>×</button>
+        </div>
+        
+        {cartItems.length === 0 ? (
+          <div className="cart-empty">
+            <p>Кошик порожній</p>
+            <p>Додайте товари з меню</p>
+          </div>
+        ) : (
+          <>
+            <div className="cart-items">
+              {cartItems.map(item => (
+                <div key={item.id} className="cart-item">
+                  <div className="cart-item-image">
+                    <img src={item.image} alt={item.name} />
+                  </div>
+                  <div className="cart-item-details">
+                    <h4>{item.name}</h4>
+                    <p className="cart-item-price">{item.price} грн</p>
+                    <div className="cart-item-controls">
+                      <button 
+                        className="quantity-btn"
+                        onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                      >
+                        -
+                      </button>
+                      <span className="quantity-display">{item.quantity}</span>
+                      <button 
+                        className="quantity-btn"
+                        onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
+                  <button 
+                    className="remove-item-btn"
+                    onClick={() => removeFromCart(item.id)}
+                  >
+                    🗑️
+                  </button>
+                </div>
+              ))}
+            </div>
+            
+            <div className="cart-footer">
+              <div className="cart-total">
+                <span>Загальна сума:</span>
+                <span className="total-price">{getTotalPrice()} грн</span>
+              </div>
+              <div className="cart-actions">
+                <button className="clear-cart-btn" onClick={clearCart}>
+                  Очистити кошик
+                </button>
+                <button className="checkout-btn">
+                  Оформити замовлення
+                </button>
+              </div>
+            </div>
+          </>
+        )}
+      </div>
+
+      {/* Оверлей для кошика */}
+      {isCartOpen && (
+        <div className="cart-overlay" onClick={toggleCart}></div>
+      )}
+
       <div className="menu-header">
         <h1>🍔 Меню Макдональдс</h1>
         <p>Оберіть свій улюблений смак</p>
@@ -212,15 +374,15 @@ export default function Menu() {
       <div className="categories-section">
         <div className="categories-grid">
           {categories.map(category => (
-                         <button
-               key={category.id}
-               className={`category-btn ${selectedCategory === category.id ? 'active' : ''}`}
-               onClick={() => setSelectedCategory(category.id)}
-             >
-               <span className="category-icon">{category.icon}</span>
-               <span className="category-name">{category.name}</span>
-               <span className="category-count">({getCategoryCount(category.id)})</span>
-             </button>
+            <button
+              key={category.id}
+              className={`category-btn ${selectedCategory === category.id ? 'active' : ''}`}
+              onClick={() => setSelectedCategory(category.id)}
+            >
+              <span className="category-icon">{category.icon}</span>
+              <span className="category-name">{category.name}</span>
+              <span className="category-count">({getCategoryCount(category.id)})</span>
+            </button>
           ))}
         </div>
       </div>
@@ -234,15 +396,15 @@ export default function Menu() {
             <div className="menu-item-content">
               <h3 className="menu-item-name">{item.name}</h3>
               <p className="menu-item-description">{item.description}</p>
-                             <div className="menu-item-footer">
-                 <span className="menu-item-price">{item.price} грн</span>
-                 <button 
-                   className={`add-to-cart-btn ${addedItems.includes(item.id) ? 'added' : ''}`}
-                   onClick={() => handleAddToCart(item.id, item.name)}
-                 >
-                   {addedItems.includes(item.id) ? '✓ Додано' : '+ Додати'}
-                 </button>
-               </div>
+              <div className="menu-item-footer">
+                <span className="menu-item-price">{item.price} грн</span>
+                <button 
+                  className={`add-to-cart-btn ${addedItems.includes(item.id) ? 'added' : ''}`}
+                  onClick={() => handleAddToCart(item)}
+                >
+                  {addedItems.includes(item.id) ? '✓ Додано' : '+ Додати'}
+                </button>
+              </div>
             </div>
           </div>
         ))}

@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using WebMacDonalds.Data;
 using WebMacDonalds.Data.Entities.Identity;
 using WebMacDonalds.Interfaces;
@@ -50,6 +51,16 @@ app.UseSwagger();
 app.UseSwaggerUI();
 app.UseCors("AllowReactApp");
 // Configure the HTTP request pipeline.
+
+var dir = builder.Configuration["ImagesDir"];
+string path = Path.Combine(Directory.GetCurrentDirectory(), dir);
+Directory.CreateDirectory(path);
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(path),
+    RequestPath = $"/{dir}"
+});
 
 app.UseAuthorization();
 

@@ -54,21 +54,14 @@ const UserProfile: React.FC = () => {
             open={isDropdownVisible}
             onOpenChange={setIsDropdownVisible}
         >
-            <div className="flex items-center space-x-2 cursor-pointer hover:bg-gray-100 rounded-full px-3 py-2 transition-colors">
+            <div className="user-profile-btn">
                 <Avatar
                     size={32}
-                    style={{ 
-                        backgroundColor: '#dc2626',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        fontSize: '14px',
-                        fontWeight: 'bold'
-                    }}
+                    className="user-avatar"
                 >
                     {getUserInitials()}
                 </Avatar>
-                <span className="hidden md:block text-sm font-medium text-gray-700">
+                <span className="user-name">
                     {getUserName()}
                 </span>
             </div>
