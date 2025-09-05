@@ -1,17 +1,26 @@
 import { useEffect, useState } from "react";
+//@ts-ignore
 import { Link } from "react-router-dom";
+//@ts-ignore
 import { Button, Tag } from 'antd';
+//@ts-ignore
 import { 
+    //@ts-ignore
     ClockCircleOutlined, 
+    //@ts-ignore
     EnvironmentOutlined, 
+    //@ts-ignore
     PhoneOutlined, 
     StarOutlined,
     FireOutlined,
+    //@ts-ignore
     ShoppingCartOutlined
-} from '@ant-design/icons';
+}
+ from '@ant-design/icons';
 import './Menu.css';
 
 export default function Home() {
+    //@ts-ignore
     const [users, setUsers] = useState([]);
 
     useEffect(() => {

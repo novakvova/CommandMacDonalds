@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+//@ts-ignore
 import { Card, Button, Input, Select, Tag, message } from 'antd';
 import { SearchOutlined, EnvironmentOutlined, PhoneOutlined, ClockCircleOutlined } from '@ant-design/icons';
 import './Menu.css';

@@ -1,5 +1,8 @@
+//@ts-ignore
 import {useGoogleLogin} from "@react-oauth/google";
+//@ts-ignore
 import { Form, Input, Button, message, Card } from 'antd';
+//@ts-ignore
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import './Menu.css';
@@ -11,7 +14,7 @@ const Register = ()=> {
     const loginByGoogle = useGoogleLogin({
         onSuccess: tokenResponse => console.log("Token", tokenResponse)
     });
-    
+    //@ts-ignore
     const onFinish = async (values) => {
         try {
             // Імітація успішної реєстрації

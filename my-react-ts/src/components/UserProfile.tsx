@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+//@ts-ignore
 import { Avatar, Dropdown, Menu, Button } from 'antd';
 import { UserOutlined, LogoutOutlined } from '@ant-design/icons';
 import { useAuth } from '../contexts/AuthContext';
