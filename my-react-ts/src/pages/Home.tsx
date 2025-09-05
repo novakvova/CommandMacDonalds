@@ -1,6 +1,15 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import { Button, Tag } from 'antd';
+import { 
+    ClockCircleOutlined, 
+    EnvironmentOutlined, 
+    PhoneOutlined, 
+    StarOutlined,
+    FireOutlined,
+    ShoppingCartOutlined
+} from '@ant-design/icons';
+import './Menu.css';
 
 export default function Home() {
     const [users, setUsers] = useState([]);
@@ -8,152 +17,222 @@ export default function Home() {
     useEffect(() => {
         console.log("useEffect triggered");
 
-        axios.get("http://localhost:5129/api/users/list")
-            .then(res => {
-                console.log("res", res);
-                setUsers(res.data); // зберігаємо юзерів у стан
-            })
-            .catch(err => {
-                console.error("Error fetching users:", err);
-            });
+        // axios.get("http://localhost:5129/api/users/list")
+        //     .then(res => {
+        //         console.log("res", res);
+        //         setUsers(res.data);
+        //     })
+        //     .catch(err => {
+        //         console.error("Error fetching users:", err);
+        //     });
     }, []);
 
+    const popularItems = [
+        {
+            id: 1,
+            name: "Біг Мак",
+            description: "Класичний бургер з двома котлетами, сиром, салатом та спеціальним соусом",
+            price: "₴89",
+            image: "🍔",
+            isNew: false,
+            isPopular: true
+        },
+        {
+            id: 2,
+            name: "МакКріспі Теріякі",
+            description: "Ніжна курочка в паніровці з соусом теріякі та свіжими овочами",
+            price: "₴95",
+            image: "🍗",
+            isNew: true,
+            isPopular: false
+        },
+        {
+            id: 3,
+            name: "Картопля Фрі",
+            description: "Хрустка картопля з натуральних сортів з сіллю та спеціями",
+            price: "₴45",
+            image: "🍟",
+            isNew: false,
+            isPopular: true
+        },
+        {
+            id: 4,
+            name: "МакФлурі Фісташка",
+            description: "Ніжне морозиво з фісташковим смаком та хрусткими вафельними крихтами",
+            price: "₴65",
+            image: "🍦",
+            isNew: true,
+            isPopular: false
+        }
+    ];
+
+    const features = [
+        {
+            icon: "⚡",
+            title: "Швидко",
+            description: "Ваше замовлення буде готове за 5-10 хвилин"
+        },
+        {
+            icon: "🌟",
+            title: "Якісно",
+            description: "Тільки свіжі інгредієнти та найвищі стандарти якості"
+        },
+        {
+            icon: "💰",
+            title: "Вигідно",
+            description: "Регулярні акції та знижки для наших клієнтів"
+        },
+        {
+            icon: "🚚",
+            title: "Доставка",
+            description: "Швидка доставка до вашого дому або офісу"
+        }
+    ];
+
+    const stats = [
+        { number: "30+", label: "Міст України" },
+        { number: "100+", label: "Ресторанів" },
+        { number: "1M+", label: "Задоволених клієнтів" },
+        { number: "24/7", label: "Підтримка" }
+    ];
+
     return (
-        <div className="space-y-12">
+        <div className="menu-container">
             {/* Hero Section */}
-            <section className="relative gradient-primary py-20 px-6 rounded-2xl text-white">
-                <div className="text-center">
-                    <h1 className="text-5xl md:text-7xl font-bold mb-6">
-                        Смачно. Швидко. Зручно.
-                    </h1>
-                    <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
-                        Відкрийте для себе найкращі страви McDonald's. Замовляйте онлайн та отримуйте знижки!
-                    </p>
-                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <Link
-                            to="/menu"
-                            className="btn-primary"
-                        >
-                            Переглянути меню
-                        </Link>
-                        <Link
-                            to="/offers"
-                            className="btn-secondary"
-                        >
-                            Акції та пропозиції
-                        </Link>
-                    </div>
+            <div className="menu-header">
+                <div className="mb-6">
+                    <span className="text-6xl">🍔</span>
                 </div>
-            </section>
+                <h1>Вдома — найсмачніше!</h1>
+                <p className="max-w-4xl mx-auto px-6 leading-relaxed">
+                    Зізнайтеся, чекали на українські бургери в МакДональдз? А ось і вони: один — довгоочікуваний, зі свининою та соусом із хріном, другий — із ніжною курочкою та часниковим соусом.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+                    <Link to="/menu">
+                        <button className="add-to-cart-btn">
+                            Переглянути меню
+                        </button>
+                    </Link>
+                    <Link to="/restaurants">
+                        <button className="btn-secondary">
+                            Знайти ресторан
+                        </button>
+                    </Link>
+                </div>
+            </div>
+
+            {/* Stats Section */}
+            <div className="card p-8 mb-8">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+                    {stats.map((stat, index) => (
+                        <div key={index} className="text-center">
+                            <div className="text-4xl font-bold text-red-600 mb-2">{stat.number}</div>
+                            <div className="text-gray-600">{stat.label}</div>
+                        </div>
+                    ))}
+                </div>
+            </div>
 
             {/* Popular Items */}
-            <section className="py-12">
+            <div className="mb-8">
                 <h2 className="section-title">Популярні страви</h2>
-                <div className="grid md:grid-cols-3 gap-8">
-                    <div className="card overflow-hidden">
-                        <div className="h-48 gradient-secondary flex items-center justify-center">
-                            <span className="text-6xl">🍔</span>
-                        </div>
-                        <div className="p-6">
-                            <h3 className="text-2xl font-bold mb-2 text-gray-800">Біг Мак</h3>
-                            <p className="text-gray-600 mb-4">Класичний бургер з двома котлетами, сиром, салатом та спеціальним соусом</p>
-                            <div className="flex justify-between items-center">
-                                <span className="price">₴89</span>
-                                <button className="btn-primary">
+                <p className="text-center text-xl text-gray-600 mb-8">Найулюбленіші страви наших клієнтів</p>
+                <div className="menu-grid">
+                    {popularItems.map((item) => (
+                        <div key={item.id} className="menu-item">
+                            <div className="menu-item-image">
+                                <span className="text-8xl">{item.image}</span>
+                            </div>
+                            <div className="menu-item-content">
+                                <div className="flex justify-between items-start mb-3">
+                                    <h3 className="menu-item-name">{item.name}</h3>
+                                    <div className="flex gap-1">
+                                        {item.isNew && <Tag color="green">Новинка</Tag>}
+                                        {item.isPopular && <Tag color="red" icon={<FireOutlined />}>Популярне</Tag>}
+                                    </div>
+                                </div>
+                                <p className="menu-item-description">{item.description}</p>
+                                <div className="flex justify-between items-center mb-4">
+                                    <span className="menu-item-price">{item.price}</span>
+                                    <div className="flex items-center text-yellow-500">
+                                        <StarOutlined />
+                                        <StarOutlined />
+                                        <StarOutlined />
+                                        <StarOutlined />
+                                        <StarOutlined />
+                                    </div>
+                                </div>
+                                <button className="add-to-cart-btn w-full">
                                     Замовити
                                 </button>
                             </div>
                         </div>
-                    </div>
-
-                    <div className="card overflow-hidden">
-                        <div className="h-48 gradient-secondary flex items-center justify-center">
-                            <span className="text-6xl">🍟</span>
-                        </div>
-                        <div className="p-6">
-                            <h3 className="text-2xl font-bold mb-2 text-gray-800">Картопля Фрі</h3>
-                            <p className="text-gray-600 mb-4">Хрустка картопля з натуральних сортів з сіллю та спеціями</p>
-                            <div className="flex justify-between items-center">
-                                <span className="price">₴45</span>
-                                <button className="btn-primary">
-                                    Замовити
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="card overflow-hidden">
-                        <div className="h-48 gradient-secondary flex items-center justify-center">
-                            <span className="text-6xl">🥤</span>
-                        </div>
-                        <div className="p-6">
-                            <h3 className="text-2xl font-bold mb-2 text-gray-800">Кока-Кола</h3>
-                            <p className="text-gray-600 mb-4">Освіжаючий напій з унікальним смаком та газованістю</p>
-                            <div className="flex justify-between items-center">
-                                <span className="price">₴35</span>
-                                <button className="btn-primary">
-                                    Замовити
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                    ))}
                 </div>
-            </section>
+            </div>
 
             {/* Features */}
-            <section className="py-12 bg-gray-50 rounded-2xl px-6">
+            <div className="card p-8 mb-8">
                 <h2 className="section-title">Чому McDonald's?</h2>
-                <div className="grid md:grid-cols-4 gap-8">
-                    <div className="text-center">
-                        <div className="w-16 h-16 gradient-primary rounded-full flex items-center justify-center mx-auto mb-4">
-                            <span className="text-2xl text-white">⚡</span>
+                <p className="text-center text-xl text-gray-600 mb-8">Ми робимо все для вашого комфорту</p>
+                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    {features.map((feature, index) => (
+                        <div key={index} className="text-center group">
+                            <div className="w-20 h-20 bg-gradient-to-br from-red-500 to-yellow-500 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                                <span className="text-3xl text-white">{feature.icon}</span>
+                            </div>
+                            <h3 className="text-xl font-bold mb-3 text-gray-800">{feature.title}</h3>
+                            <p className="text-gray-600">{feature.description}</p>
                         </div>
-                        <h3 className="text-xl font-bold mb-2 text-gray-800">Швидко</h3>
-                        <p className="text-gray-600">Ваше замовлення буде готове за 5-10 хвилин</p>
+                    ))}
+                </div>
+            </div>
+
+            {/* Quick Actions */}
+            <div className="menu-grid">
+                <div className="menu-item">
+                    <div className="menu-item-image">
+                        <span className="text-6xl">🏪</span>
                     </div>
-                    <div className="text-center">
-                        <div className="w-16 h-16 gradient-primary rounded-full flex items-center justify-center mx-auto mb-4">
-                            <span className="text-2xl text-white">🌟</span>
-                        </div>
-                        <h3 className="text-xl font-bold mb-2 text-gray-800">Якісно</h3>
-                        <p className="text-gray-600">Тільки свіжі інгредієнти та найвищі стандарти якості</p>
-                    </div>
-                    <div className="text-center">
-                        <div className="w-16 h-16 gradient-primary rounded-full flex items-center justify-center mx-auto mb-4">
-                            <span className="text-2xl text-white">💰</span>
-                        </div>
-                        <h3 className="text-xl font-bold mb-2 text-gray-800">Вигідно</h3>
-                        <p className="text-gray-600">Регулярні акції та знижки для наших клієнтів</p>
-                    </div>
-                    <div className="text-center">
-                        <div className="w-16 h-16 gradient-primary rounded-full flex items-center justify-center mx-auto mb-4">
-                            <span className="text-2xl text-white">🚚</span>
-                        </div>
-                        <h3 className="text-xl font-bold mb-2 text-gray-800">Доставка</h3>
-                        <p className="text-gray-600">Швидка доставка до вашого дому або офісу</p>
+                    <div className="menu-item-content text-center">
+                        <h3 className="menu-item-name">Знайти ресторан</h3>
+                        <p className="menu-item-description">Знайдіть найближчий ресторан McDonald's та його послуги</p>
+                        <Link to="/restaurants">
+                            <button className="add-to-cart-btn w-full">
+                                Знайти
+                            </button>
+                        </Link>
                     </div>
                 </div>
-            </section>
-
-            {/* User List Section (if needed) */}
-            {users.length > 0 && (
-                <section className="py-12">
-                    <h2 className="text-3xl font-bold mb-8 text-gray-800">Наші користувачі</h2>
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {users.map((user: any, index) => (
-                            <div key={index} className="card p-6">
-                                <div className="w-12 h-12 gradient-primary rounded-full flex items-center justify-center mb-4">
-                                    <span className="text-white font-bold text-lg">
-                                        {user.fullName?.charAt(0) || 'U'}
-                                    </span>
-                                </div>
-                                <h3 className="text-xl font-semibold mb-2 text-gray-800">{user.fullName}</h3>
-                                <p className="text-gray-600">{user.email}</p>
-                            </div>
-                        ))}
+                <div className="menu-item">
+                    <div className="menu-item-image">
+                        <span className="text-6xl">🍽️</span>
                     </div>
-                </section>
-            )}
+                    <div className="menu-item-content text-center">
+                        <h3 className="menu-item-name">Переглянути меню</h3>
+                        <p className="menu-item-description">Ознайомтеся з нашим повним меню та новинками</p>
+                        <Link to="/menu">
+                            <button className="add-to-cart-btn w-full">
+                                Меню
+                            </button>
+                        </Link>
+                    </div>
+                </div>
+                <div className="menu-item">
+                    <div className="menu-item-image">
+                        <span className="text-6xl">👤</span>
+                    </div>
+                    <div className="menu-item-content text-center">
+                        <h3 className="menu-item-name">Особистий кабінет</h3>
+                        <p className="menu-item-description">Увійдіть в свій акаунт для зручного замовлення</p>
+                        <Link to="/login">
+                            <button className="add-to-cart-btn w-full">
+                                Увійти
+                            </button>
+                        </Link>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }
