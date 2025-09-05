@@ -28,14 +28,6 @@ export default function Layout() {
                         </li>
                         <li>
                             <Link
-                                to="/offers"
-                                className="hover:text-red-600 transition-colors duration-200 font-semibold"
-                            >
-                                Пропозиції
-                            </Link>
-                        </li>
-                        <li>
-                            <Link
                                 to="/restaurants"
                                 className="hover:text-red-600 transition-colors duration-200 font-semibold"
                             >
@@ -106,7 +98,7 @@ export default function Layout() {
                                 <li><Link to="/menu" className="hover:text-white transition-colors">Картопля</Link></li>
                                 <li><Link to="/menu" className="hover:text-white transition-colors">Напої</Link></li>
                                 <li><Link to="/menu" className="hover:text-white transition-colors">Десерти</Link></li>
-                                <li><Link to="/offers" className="hover:text-white transition-colors">Акції</Link></li>
+                                <li><Link to="/menu" className="hover:text-white transition-colors">Сніданки</Link></li>
                             </ul>
                         </div>
                         
